@@ -16,6 +16,7 @@ def create_lstm_model(block_len=512):
     
     # Sequence modeling
     x = tf.keras.layers.LSTM(128, return_sequences=True)(x)
+    x = tf.keras.layers.Dropout(0.2)(x)
     x = tf.keras.layers.LSTM(128, return_sequences=True)(x)
     
     # Output projection
