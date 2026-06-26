@@ -54,6 +54,12 @@ def create_lstm_dataset(clean_dir, noise_dirs, batch_size=32, block_len=512):
             clean_audio = clean_audio[:min_len]
             noise_audio = noise_audio[:min_len]
             
+            # Apply random gain augmentation to simulate different microphone distances
+            clean_gain = tf.random.uniform([], 0.5, 1.5)
+            noise_gain = tf.random.uniform([], 0.5, 1.5)
+            clean_audio = clean_audio * clean_gain
+            noise_audio = noise_audio * noise_gain
+            
             # Mix signals with random SNR
             snr = tf.random.uniform([], 0.1, 0.9)
             mixed_audio = (clean_audio * snr) + (noise_audio * (1.0 - snr))
