@@ -50,6 +50,12 @@ def train_lstm():
             patience=5,
             min_lr=1e-6,
             verbose=1
+        ),
+        tf.keras.callbacks.EarlyStopping(
+            monitor='loss',
+            patience=12,
+            restore_best_weights=True,
+            verbose=1
         )
     ]
 
